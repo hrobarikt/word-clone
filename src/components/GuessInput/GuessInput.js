@@ -5,16 +5,10 @@ function GuessInput({ addNewGuess }) {
   function submitHandler(event) {
     event.preventDefault();
     addNewGuess(guess);
-    setGuess("");
     console.log({ guess });
+    setGuess("");
   }
 
-  function removeUnwantedChars(str) {
-    if (typeof str !== "string") {
-      return;
-    }
-    return str.replace(/[^A-Z]/g, "");
-  }
   return (
     <form className="guess-input-wrapper" onSubmit={submitHandler}>
       <label htmlFor="guess-input">Enter guess:</label>
@@ -22,14 +16,15 @@ function GuessInput({ addNewGuess }) {
         id="guess-input"
         type="text"
         value={guess}
+        required
+        pattern="[a-zA-Z]{5}"
+        title="5 letter word"
         onChange={(event) => {
-          const newGuess = removeUnwantedChars(
-            event.target.value.toUpperCase()
-          );
+          const newGuess = event.target.value.toUpperCase();
           setGuess(newGuess);
         }}
-        minLength="5"
-        maxLength="5"
+        maxLength={5}
+        minLength={5}
       />
     </form>
   );
