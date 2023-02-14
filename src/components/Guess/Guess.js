@@ -1,11 +1,15 @@
 import React from "react";
 
+import { range } from "../../utils";
+
 function Guess({ word }) {
+  const cells = range(5);
+
   return (
     <p className="guess">
-      {word.split("").map((letter, index) => (
+      {cells.map((index) => (
         <span className="cell" key={index}>
-          {letter}
+          {word[index]}
         </span>
       ))}
     </p>
