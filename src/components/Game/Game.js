@@ -1,6 +1,6 @@
 import React from "react";
 
-import { sample, range } from "../../utils";
+import { sample } from "../../utils";
 import { WORDS } from "../../data";
 import GuessInput from "../GuessInput";
 import GuessResults from "../GuessResults";
@@ -11,23 +11,18 @@ const answer = sample(WORDS);
 console.info({ answer });
 
 function Game() {
-  const [guessResults, setGuessResults] = React.useState(
-    range(NUM_OF_GUESSES_ALLOWED)
-  );
-  const [numOfGuesses, setNumOfGuesses] = React.useState(0);
+  const [guessResults, setGuessResults] = React.useState([]);
 
   function addNewGuess(newGuess) {
-    if (numOfGuesses + 1 > NUM_OF_GUESSES_ALLOWED) {
+    if (guessResults.length + 1 > NUM_OF_GUESSES_ALLOWED) {
       return;
     }
-    const nextGuessResults = [...guessResults];
-    nextGuessResults[numOfGuesses] = newGuess;
-    setNumOfGuesses(numOfGuesses + 1);
-    setGuessResults(nextGuessResults);
+
+    setGuessResults([...guessResults, newGuess]);
   }
   return (
     <>
-      <GuessResults guessResults={guessResults}></GuessResults>
+      <GuessResults guessResults={guessResults} answer={answer}></GuessResults>
       <GuessInput addNewGuess={addNewGuess}></GuessInput>
     </>
   );
