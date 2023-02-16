@@ -1,18 +1,15 @@
 import React from "react";
-import { checkGuess } from "../../game-helpers";
 import { range } from "../../utils";
 
-function Guess({ word, answer }) {
-  const result = checkGuess(word, answer);
-
+function Guess({ letters }) {
   return (
     <p className="guess">
       {range(5).map((index) => (
         <span
-          className={`cell ${word ? result[index].status : ""}`}
+          className={`cell ${letters ? letters[index].status : ""}`}
           key={index}
         >
-          {word ? word[index] : undefined}
+          {letters ? letters[index].letter : undefined}
         </span>
       ))}
     </p>
